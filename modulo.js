@@ -121,7 +121,7 @@ const alterar = (array, texto) => {
     if(texto == "estado"){
         array[indice].sigla =  validarSigla();
         array[indice].indicePai = encontrarIndice(paises, "país");
-    } else if(texto == "cidade"){
+    } else if(texto == "município"){
         array[indice].indicePai = encontrarIndice(estados, "estado");
     }
     console.log("Alteração realizada com sucesso.");
@@ -155,7 +155,7 @@ const switchExcluir = (cep) => {
             criarEstado(estados, "estado", cidades);
             break;
         case '3':
-            criarCidade(cidades, "cidade", paises);
+            criarCidade(cidades, "município", paises);
             break;
     }
 }

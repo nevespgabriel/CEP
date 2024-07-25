@@ -5,7 +5,7 @@ while(true){
     console.log(`
     [1] País
     [2] Estado
-    [3] Cidade
+    [3] Município
     [4] Sair
     `)
     const opcao = prompt().trim();
@@ -17,7 +17,7 @@ while(true){
             modulo.crud(opcao, "estado");
             break;
         case '3':
-            modulo.crud(opcao, "cidade");
+            modulo.crud(opcao, "município");
             break;
         case '4':
             process.exit();
