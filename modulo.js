@@ -14,6 +14,17 @@ const pedirNome = (texto) => {
     }
 }
 
+const validarSigla = () => {
+    while(true){
+        const sigla = prompt("Digite a sigla do estado: ").trim().toUpperCase();
+        if(sigla.length > 2){
+            console.log("Sigla inválida.");
+        } else{
+            return sigla;
+        }
+    }
+}
+
 const encontrarIndice = (array, texto) => {
     while(true){
         const indice = prompt("Digite o índice do " + texto + ": ");
@@ -69,4 +80,35 @@ const listar = (array, texto) => {
         }
         console.log("==========================");
     });
+}
+
+const alterar = (array, texto) => {
+    const indice = encontrarIndice(array, texto + " que deseja alterar");
+    array[i].nome = pedirNome("Digite o novo nome do " + texto + ": ");
+    if(texto == "estado"){
+        array[i].sigla =  validarSigla();
+        array[i].indicePai = encontrarIndice(paises, "país");
+    } else if(texto == "cidade"){
+        array[i].indicePai = encontrarIndice(estados, "estado");
+    }
+    console.log("Alteração realizada com sucesso.");
+}
+
+const excluir = (array, texto, arrayFilho=undefined) => {
+    const indice = encontrarIndice(array, texto + " que deseja excluir");
+    let eliminados = 0;
+    if(arrayFilho){
+        arrayFilho.forEach((elementoFilho) => {
+            if(elementoFilho.indicePai == indice){
+                arrayFilho.splice(indice, 1);
+                eliminados += 1;
+            } else{
+                elementoFilho.indice -= eliminados;
+            }
+        })
+    }
+    array.splice(indice, 1);
+    for(let c=indice; c< array.length; c++){
+        array[c].indice -= 1;
+    }
 }
