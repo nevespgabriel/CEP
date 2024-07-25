@@ -17,7 +17,7 @@ const pedirNome = (texto) => {
 const validarSigla = () => {
     while(true){
         const sigla = prompt("Digite a sigla do estado: ").trim().toUpperCase();
-        if(sigla.length > 2){
+        if(sigla.length != 2){
             console.log("Sigla inválida.");
         } else{
             return sigla;
