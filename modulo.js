@@ -51,17 +51,30 @@ const criarEstado = () => {
         estado.indice = estados.length;
         estado.nome = pedirNome("Digite o nome do estado: ");
         estado.indicePai = encontrarIndice(paises, "país");
+        estados.push(estado);
     } else{
         console.log("Não há nenhum país cadastrado, portanto não é possível criar o estado.");
     }
 }
 
+const retornaArray = (cep) => {
+    switch(cep){
+        case 1:
+            return paises;
+        case 2:
+            return estados;
+        case 3:
+            return cidades;
+    }
+}
+
 const criarCidade = () => {
     if(temArray(estados)){
-        const cidade = {};
+        const cep = {};
         cidade.indice = cidades.length
         cidade.nome = pedirNome("Digite o nome da cidade");
         cidade.indicePai = encontrarIndice(estados, "estado");
+        cidades.push(cidade);
     } else{
         console.log("Não há nenhum estado cadastrado, portanto não é possível criar a cidade.");
     }
@@ -80,6 +93,20 @@ const listar = (array, texto) => {
         }
         console.log("==========================");
     });
+}
+
+const criar = (cep) => {
+    switch(cep){
+        case '1':
+            criarPais()
+            break;
+        case '2':
+            criarEstado();
+            break;
+        case '3':
+            criarCidade();
+            break;
+    }
 }
 
 const alterar = (array, texto) => {
@@ -111,4 +138,54 @@ const excluir = (array, texto, arrayFilho=undefined) => {
     for(let c=indice; c< array.length; c++){
         array[c].indice -= 1;
     }
+}
+
+const switchExcluir = (cep) => {
+    switch(cep){
+        case '1':
+            excluir(paises, "país", estados);
+            break;
+        case '2':
+            criarEstado(estados, "estado", cidades);
+            break;
+        case '3':
+            criarCidade(cidades, "cidade", paises);
+            break;
+    }
+}
+
+const crud = (cep, texto) => {
+    const array = retornaArray(cep);
+    while(true){
+        console.log(`
+        [1] Adicionar ${texto}
+        [2] Listar ${texto}
+        [3] Alterar ${texto}
+        [4] Excluir ${texto}
+        [5] Voltar
+        `)
+        const opcao = prompt("Digite a opção que deseja: ").trim();
+        switch(opcao){
+            case '1':
+                criar(cep)
+                break;
+            case '2':
+                listar(array, texto.toUpperCase() + "s");
+                break;
+            case '3':
+                alterar(array, texto);
+                break;
+            case '4':
+                switchExcluir(cep)
+                break;
+            case '5':
+                return;
+            default:
+                console.log("Opção inválida.");
+        }
+    }
+}
+
+module.exports = {
+    crud
 }
