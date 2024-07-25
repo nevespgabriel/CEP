@@ -127,18 +127,25 @@ const alterar = (array, texto) => {
     console.log("Alteração realizada com sucesso.");
 }
 
+const excuiFilhos = (arrayFilho, indice) => {
+    arrayFilho.forEach((elementoFilho) => {
+        if(elementoFilho.indicePai == indice){
+            if(arrayFilho == estados){
+                excluiFilhos(cidades, indice);
+            }
+            arrayFilho.splice(indice, 1);
+            eliminados += 1;
+        } else{
+            elementoFilho.indice -= eliminados;
+        }
+    })
+}
+
 const excluir = (array, texto, arrayFilho=undefined) => {
     const indice = encontrarIndice(array, texto + " que deseja excluir");
     let eliminados = 0;
     if(arrayFilho){
-        arrayFilho.forEach((elementoFilho) => {
-            if(elementoFilho.indicePai == indice){
-                arrayFilho.splice(indice, 1);
-                eliminados += 1;
-            } else{
-                elementoFilho.indice -= eliminados;
-            }
-        })
+        excluiFilhos(arrayFilho, indice)
     }
     array.splice(indice, 1);
     for(let c=indice; c< array.length; c++){
