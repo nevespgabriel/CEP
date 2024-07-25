@@ -50,6 +50,7 @@ const criarEstado = () => {
         const estado = {};
         estado.indice = estados.length;
         estado.nome = pedirNome("Digite o nome do estado: ");
+        estado.sigla =  validarSigla();
         estado.indicePai = encontrarIndice(paises, "país");
         estados.push(estado);
     } else{
@@ -59,11 +60,11 @@ const criarEstado = () => {
 
 const retornaArray = (cep) => {
     switch(cep){
-        case 1:
+        case '1':
             return paises;
-        case 2:
+        case '2':
             return estados;
-        case 3:
+        case '3':
             return cidades;
     }
 }
@@ -82,17 +83,22 @@ const criarCidade = () => {
 
 const listar = (array, texto) => {
     console.log(texto);
-    array.forEach(elemento => {
-        console.log("==========================");
-        console.log("Índice: " + elemento.indice);
-        console.log("Nome: " + elemento.nome);
-        if(texto == "ESTADOS"){
-            console.log("Sigla: " + elemento.sigla);
-        } if(texto != "PAÍSES"){
-            console.log("Índice do " + texto.toLowerCase().replace("s", "") + ": " + elemento.indicePai);
-        }
-        console.log("==========================");
-    });
+    if(array.length > 0){
+        array.forEach(elemento => {
+            console.log("==========================");
+            console.log("Índice: " + elemento.indice);
+            console.log("Nome: " + elemento.nome);
+            if(array == estados){
+                console.log("Sigla: " + elemento.sigla);
+            } if(array != paises){
+                console.log("Índice do " + texto.toLowerCase().replace("s", "") + ": " + elemento.indicePai);
+            }
+            console.log("==========================");
+        });
+    } else{
+        console.log("Não há " + texto.toLowerCase());
+    }
+        
 }
 
 const criar = (cep) => {
@@ -111,12 +117,12 @@ const criar = (cep) => {
 
 const alterar = (array, texto) => {
     const indice = encontrarIndice(array, texto + " que deseja alterar");
-    array[i].nome = pedirNome("Digite o novo nome do " + texto + ": ");
+    array[indice].nome = pedirNome("Digite o novo nome do " + texto + ": ");
     if(texto == "estado"){
-        array[i].sigla =  validarSigla();
-        array[i].indicePai = encontrarIndice(paises, "país");
+        array[indice].sigla =  validarSigla();
+        array[indice].indicePai = encontrarIndice(paises, "país");
     } else if(texto == "cidade"){
-        array[i].indicePai = encontrarIndice(estados, "estado");
+        array[indice].indicePai = encontrarIndice(estados, "estado");
     }
     console.log("Alteração realizada com sucesso.");
 }
