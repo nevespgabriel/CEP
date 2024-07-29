@@ -81,7 +81,7 @@ const criarCidade = () => {
     }
 }
 
-const listar = (array, texto) => {
+const listar = (array, texto, pai) => {
     console.log(texto);
     if(array.length > 0){
         array.forEach(elemento => {
@@ -91,7 +91,7 @@ const listar = (array, texto) => {
             if(array == estados){
                 console.log("Sigla: " + elemento.sigla);
             } if(array != paises){
-                console.log("Índice do " + texto.toLowerCase().replace("s", "") + ": " + elemento.indicePai);
+                console.log("Índice do " + pai + ": " + elemento.indicePai);
             }
             console.log("==========================");
         });
@@ -167,7 +167,7 @@ const switchExcluir = (cep) => {
     }
 }
 
-const crud = (cep, texto) => {
+const crud = (cep, texto, pai = "") => {
     const array = retornaArray(cep);
     while(true){
         console.log(`
@@ -183,7 +183,7 @@ const crud = (cep, texto) => {
                 criar(cep)
                 break;
             case '2':
-                listar(array, texto.toUpperCase() + "s");
+                listar(array, texto.toUpperCase() + "s", pai);
                 break;
             case '3':
                 alterar(array, texto);

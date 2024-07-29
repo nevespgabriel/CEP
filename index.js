@@ -14,10 +14,10 @@ while(true){
             modulo.crud(opcao, "país");
             break;
         case '2':
-            modulo.crud(opcao, "estado");
+            modulo.crud(opcao, "estado", "país");
             break;
         case '3':
-            modulo.crud(opcao, "município");
+            modulo.crud(opcao, "município", "estado");
             break;
         case '4':
             process.exit();
